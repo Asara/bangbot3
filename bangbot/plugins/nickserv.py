@@ -8,7 +8,7 @@ def register(bot, ns=None, nick=None):
     print('REGISTER')
     print(bot + ns + nick)
     try:
-        password = bot.config[bot.config.host][nick]
+        password = bot.config[bot.config.host][password]
     except KeyError:
         pass
     else:

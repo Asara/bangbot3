@@ -1,5 +1,6 @@
 [bot]
 nick = bangbot3
+password = password
 realname = bangbot3
 
 host = chat.freenode.net
@@ -14,6 +15,7 @@ includes =
     irc3.plugins.command
     plugins.hello
     plugins.nickserv
+    plugins.quit
 
 autojoins =
     first_channel
