@@ -8,18 +8,12 @@ class Plugin(object):
     def __init__(self, bot):
         self.bot = bot
 
-    @irc3.event(irc3.rfc.JOIN)
-    def say_hi(self, mask, channel):
-        """Say hi when someone join a channel"""
-        if mask.nick != self.bot.nick:
-            self.bot.privmsg(channel, 'Hi %s!' % mask.nick)
-        else:
-            self.bot.privmsg(channel, 'Hi %s!' % channel)
+    @command(permission='admin')
+    def quit(self, mask, target, args):
+        """Quit
 
-    @command(permission='view')
-    def echo(self, mask, target, args):
-        """Echo
-
-            %%echo <message>...
+            %%quit
         """
-        yield ' '.join(args['<message>'])
+        yield 'Quitting'
+        self.bot.loop.call_later(1, self.bot.quit)
+        self.bot.loop.call_later(1, self.bot.loop.stop)
