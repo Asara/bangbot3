@@ -27,6 +27,9 @@ autojoins =
 # set command char
 cmd = !
 
+# set antiflood
+antiflood = true
+
 # set guard policy
 guard = irc3.plugins.command.mask_based_policy
 
