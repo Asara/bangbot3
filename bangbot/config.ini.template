@@ -2,9 +2,10 @@
 nick = bangbot3
 password = password
 realname = bangbot3
+userinfo = bangbot based on irc3 github://Asara/bangbot3
 
 host = chat.freenode.net
-port = 6697
+port = 7000
 
 # uncomment this if you want ssl support
 ssl = true
