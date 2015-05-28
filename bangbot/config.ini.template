@@ -2,7 +2,7 @@
 nick = bangbot3
 password = password
 realname = bangbot3
-userinfo = bangbot based on irc3 github://Asara/bangbot3
+userinfo = bangbot based on irc3: github://Asara/bangbot3
 
 host = chat.freenode.net
 port = 7000
@@ -14,13 +14,17 @@ ssl = true
 
 includes =
     irc3.plugins.command
+    irc3.plugins.uptime
+    irc3.plugins.logger
     plugins.hello
     plugins.nickserv
     plugins.quit
+    plugins.urlscrape
+    plugins.quotes
 
 autojoins =
-    first_channel
-    second_channel
+    channel_one
+    channel_two
 
 [irc3.plugins.command]
 # command plugin configuration
@@ -28,7 +32,7 @@ autojoins =
 # set command char
 cmd = !
 
-# set antiflood
+# set anti flood
 antiflood = true
 
 # set guard policy
@@ -39,3 +43,7 @@ guard = irc3.plugins.command.mask_based_policy
 # change your nickname and uncomment the line below
 Username!*@* = all_permissions
 * = view
+
+
+[irc3.plugins.logger]
+filename = 'extra/logs/{host}/{channel}-{date:%Y%m%d}.log'
