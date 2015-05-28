@@ -46,4 +46,4 @@ Username!*@* = all_permissions
 
 
 [irc3.plugins.logger]
-filename = 'extra/logs/{host}/{channel}-{date:%Y%m%d}.log'
+filename = extra/logs/{host}/{channel}-{date:%Y%m%d}.log
