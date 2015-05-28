@@ -62,3 +62,20 @@ class Plugin(object):
                 yield '{0}. {1}'.format(show_line, line)
         except FileNotFoundError:
             yield 'There are no quotes yet'
+
+    @command(permission='admin')
+    def delete(self,mask,target,args):
+        """Delete quote by number (Admin)
+
+            %%delete <number>
+        """
+        qfile = qfolder + target
+        delete_number = int(args['<number>'][0])
+        infile = open(qfile, 'r')
+        out = open(qfile + ".new", "w")
+        for i, l in enumerate(infile, 1):
+            if i != delete_number:
+                out.write(l)
+        infile.close()
+        out.close()
+        os.rename(qfile + ".new", qfile)
