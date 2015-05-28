@@ -63,4 +63,4 @@ pip-selfcheck.json
 
 # local
 bangbot/config.ini
-bangbot/extra/
+bangbot/extra/*
