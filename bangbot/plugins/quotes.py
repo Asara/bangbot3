@@ -22,7 +22,7 @@ class Plugin(object):
             %%add <quote>...
         """
         qfile = qfolder + target
-        with open(quotesfile, 'a') as f:
+        with open(qfile, 'a') as f:
             f.write("{}\n".format(' '.join(args['<quote>'])))
 
 
