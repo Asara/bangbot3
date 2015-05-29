@@ -38,38 +38,34 @@ class Plugin(object):
     def quote(self, mask, target, args):
         """If a specific number is given print that line, 0 for newest
 
-            %%quote <number>
+            %%quote [<number>]
         """
         qfile = qfolder + target
-        try:
-            with open(qfile, 'r') as f:
-                show_line = int(args['<number>'][0])
-                get_line = show_line - 1
-                try:
+        if args['<number>']:
+            line_number = int(args['<number>'])
+            try:
+                with open(qfile, 'r') as f:
+                    get_line = line_number - 1
+                    try:
+                        lines = f.readlines()
+                        yield '{0}. {1}'.format(
+                                line_number, str(lines[get_line])
+                        )
+                    except:
+                        yield 'That quote does not exist'
+            except FileNotFoundError:
+                yield 'There are no quotes yet'
+        else:
+            try:
+                with open(qfile, 'r') as f:
                     lines = f.readlines()
-                    yield '{0}. {1}'.format(show_line, str(lines[get_line]))
-                except:
-                    yield 'That quote does not exist'
-        except FileNotFoundError:
-            yield 'There are no quotes yet'
-
-    @command(permission=None)
-    def rquote(self, mask, target, args):
-        """Return a random quote
-
-            %%rquote
-        """
-        qfile = qfolder + target
-        try:
-            with open(qfile, 'r') as f:
-                lines = f.readlines()
-                num_lines = len(lines)
-                get_line = randrange(0, num_lines)
-                show_line = get_line + 1
-                line = lines[get_line]
-                yield '{0}. {1}'.format(show_line, line)
-        except FileNotFoundError:
-            yield 'There are no quotes yet'
+                    num_lines = len(lines)
+                    get_line = randrange(0, num_lines)
+                    show_line = get_line + 1
+                    line = lines[get_line]
+                    yield '{0}. {1}'.format(show_line, line)
+            except FileNotFoundError:
+                yield 'There are no quotes yet'
 
     @command(permission='admin')
     def delete(self,mask,target,args):
