@@ -15,18 +15,26 @@ class Plugin(object):
     def __init__(self, bot):
         self.bot = bot
 
-    @command(permission='view')
+    @command(permission=None)
     def add(self, mask, target, args):
         """Add a quote
 
             %%add <quote>...
         """
         qfile = qfolder + target
-        with open(qfile, 'a') as f:
-            f.write("{}\n".format(' '.join(args['<quote>'])))
+        add_quote = ' '.join(args['<quote>'])
+        try:
+            with open(qfile, 'a') as f:
+                f.write("{}\n".format(add_quote))
+            with open(qfile, 'r') as f:
+                for num, line in enumerate(f, 1):
+                    if add_quote in line:
+                        yield 'Added quote #{0}: {1}'.format(num, add_quote)
+        except:
+            yield 'Could not add quote.'
 
 
-    @command(permission='view')
+    @command(permission=None)
     def quote(self, mask, target, args):
         """If a specific number is given print that line, 0 for newest
 
@@ -45,7 +53,7 @@ class Plugin(object):
         except FileNotFoundError:
             yield 'There are no quotes yet'
 
-    @command(permission='view')
+    @command(permission=None)
     def rquote(self, mask, target, args):
         """Return a random quote
 
