@@ -3,7 +3,6 @@ from irc3.plugins.command import command
 import irc3
 import requests
 import json
-import re
 
 
 
