@@ -21,6 +21,8 @@ includes =
     plugins.quit
     plugins.urlscrape
     plugins.quotes
+    plugins.btc
+    plugins.dice
 
 autojoins =
     channel_one
