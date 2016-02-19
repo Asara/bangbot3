@@ -62,5 +62,6 @@ lib64/
 pip-selfcheck.json
 
 # local
+bangbot/nohup.out
 bangbot/config.ini
 bangbot/extra/*

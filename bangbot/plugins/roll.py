@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import irc3
 from irc3.plugins.command import command
-from random import randrange 
+from random import randint
 
 @irc3.plugin
 class Plugin(object):
@@ -36,7 +36,7 @@ class Plugin(object):
         else:
             roll_list= []
             for _ in range(x):
-                roll_list.append(randrange(1,y))
+                roll_list.append(randint(1,y))
             roll_total = sum(x for x in roll_list)
             modified_roll_total = roll_total + z
             yield '{}: {}'.format(original_roll, modified_roll_total)
