@@ -15,7 +15,7 @@ class Plugin(object):
             %%roll [<dice>]...
         """
         dice = ' '.join(args['<dice>'])
-        original_roll = dice
+        original_roll = dice if dice else '1d6'
         try:
             z = int(dice.split('+')[1])
             dice = dice.split('+')[0]
