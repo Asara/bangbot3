@@ -3,7 +3,12 @@ from irc3.plugins.command import command
 import irc3
 import datetime
 
-line = ['   )     )     ) ',  '  ) \   ) \   ) \ ', ' / ) ( / ) ( / ) (',' \(_)/ \(_)/ \(_)/',]
+line = [
+    '   )     )     ) ',
+    '  ) \   ) \   ) \ ',
+    ' / ) ( / ) ( / ) (',
+    ' \(_)/ \(_)/ \(_)/',
+]
 @irc3.plugin
 class Plugin(object):
     def __init__(self, bot):
