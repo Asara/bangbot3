@@ -67,6 +67,21 @@ class Plugin(object):
             except FileNotFoundError:
                 yield 'There are no quotes yet'
 
+    @command(permission=None)
+    def quotes(self, mask, target, args):
+        """Print all quotes
+
+            %%quotes
+        """
+        qfile = qfolder + target
+        try:
+            with open(qfile, 'r') as f:
+                lines = f.readlines()
+                for indx, line in enumerate(lines):
+                    yield '{0}. {1}'.format(indx+1, line)
+        except FileNotFoundError:
+            yield 'There are no quotes yet'
+
     @command(permission='admin')
     def delete(self,mask,target,args):
         """Delete quote by number (Admin)
