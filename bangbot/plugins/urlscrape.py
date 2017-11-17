@@ -21,4 +21,4 @@ class Plugin(object):
                     article.parse()
                     self.bot.privmsg(target, '%s' % article.title)
                 except newspaper.article.ArticleException:
-                    self.bot.privmsg(target, 'No title')
+                    pass
