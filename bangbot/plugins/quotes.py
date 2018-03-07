@@ -48,9 +48,15 @@ class Plugin(object):
                     get_line = line_number - 1
                     try:
                         lines = f.readlines()
-                        yield '{0}. {1}'.format(
-                                line_number, str(lines[get_line])
-                        )
+                        if get_line == -1:
+                            yield '{0}. {1}'.format(
+                                    len(lines) , str(lines[get_line])
+                            )
+
+                        else:
+                            yield '{0}. {1}'.format(
+                                    line_number, str(lines[get_line])
+                            )
                     except:
                         yield 'That quote does not exist'
             except FileNotFoundError:
