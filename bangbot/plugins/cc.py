@@ -11,7 +11,9 @@ price_cheat_sheet = {
   "eth": "ethereum",
   "xrp": "ripple",
   "ltc": "litecoin",
-  "xmr": "monero"
+  "xmr": "monero",
+  "sc": "siacoin",
+  "zec": "zcash"
 
 }
 
