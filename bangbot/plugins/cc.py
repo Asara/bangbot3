@@ -2,7 +2,6 @@
 from irc3.plugins.command import command
 import irc3
 from coinmarketcap import Market
-from json import loads
 
 price_cheat_sheet = {
   "btc": "bitcoin",
@@ -31,6 +30,6 @@ class Plugin(object):
         try:
             curlookup = Market()
             cryptoCur= str(args['<requestedCryptoCur>'])
-            yield(price_cheat_sheet[cryptoCur] + ': ' + loads(curlookup.ticker(price_cheat_sheet[cryptoCur]).decode("utf-8"))[0]["price_usd"])
+            yield(price_cheat_sheet[cryptoCur] + ': ' + curlookup.ticker(price_cheat_sheet[cryptoCur])[0]["price_usd"])
         except:
             yield('Currency not found')
