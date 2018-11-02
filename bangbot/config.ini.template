@@ -21,7 +21,6 @@ includes =
     plugins.quit
     plugins.urlscrape
     plugins.quotes
-    plugins.btc
     plugins.dice
     plugins.time
     plugins.lit

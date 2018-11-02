@@ -1,20 +1,8 @@
 # -*- coding: utf-8 -*-
 from irc3.plugins.command import command
 import irc3
-from coinmarketcap import Market
-
-price_cheat_sheet = {
-  "btc": "bitcoin",
-  "bch": "bitcoin-cash",
-  "btg": "bitcoin-gold",
-  "eth": "ethereum",
-  "xrp": "ripple",
-  "ltc": "litecoin",
-  "xmr": "monero",
-  "sc": "siacoin",
-  "zec": "zcash"
-
-}
+import json
+import requests
 
 @irc3.plugin
 class Plugin(object):
@@ -28,8 +16,25 @@ class Plugin(object):
             %%cc <requestedCryptoCur>
         """
         try:
-            curlookup = Market()
-            cryptoCur= str(args['<requestedCryptoCur>'])
-            yield(price_cheat_sheet[cryptoCur] + ': ' + curlookup.ticker(price_cheat_sheet[cryptoCur])[0]["price_usd"])
+            currency_name = str(args['<requestedCryptoCur>']).upper()
+            d =  requests.get(
+                    'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=' +
+                    currency_name +
+                    '&tsyms=USD'
+                    ).json()['DISPLAY'][currency_name]['USD']
+            yield(
+
+                    currency_name +
+                    '/' +
+                    d['FROMSYMBOL'] +
+                    ':' +
+                    d['PRICE'] +
+                    '. Market cap:' +
+                    d['MKTCAP'] +
+                    '. 24 Hour low:' +
+                    d['LOW24HOUR'] +
+                    '. 24 hour high:' +
+                    d['HIGH24HOUR']
+                )
         except:
             yield('Currency not found')
