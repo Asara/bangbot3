@@ -24,18 +24,14 @@ class Plugin(object):
                     ).json()
             yield(
                     s['symbol'] +
-                    '/'
+                    '/' +
                     s['companyName'] +
-                    ': ' +
-                    s['latestPrice'] +
-                    '. 52 week low:' +
-                    s['week52Low']
-                    '. 52 weekhigh:' +
-                    s['week52High'] +
-                    '. Market cap:' +
-                    s['marketCap'] +
-                    '. Market volume:' +
-                    s['marketCap']
+                    ':$' +
+                    str(s['latestPrice']) +
+                    '. 52 week low:$' +
+                    str(s['week52Low']) +
+                    '. 52 week high:$' +
+                    str(s['week52High'])
                 )
         except:
             yield('Stock not found')
