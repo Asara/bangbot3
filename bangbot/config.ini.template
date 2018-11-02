@@ -24,6 +24,8 @@ includes =
     plugins.dice
     plugins.time
     plugins.lit
+    plugins.cc
+    plugins.stock
 
 autojoins =
     channel_one
