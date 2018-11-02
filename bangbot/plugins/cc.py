@@ -25,8 +25,6 @@ class Plugin(object):
             yield(
 
                     currency_name +
-                    '/' +
-                    d['FROMSYMBOL'] +
                     ':' +
                     d['PRICE'] +
                     '. Market cap:' +
