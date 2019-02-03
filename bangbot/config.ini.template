@@ -7,7 +7,7 @@ realname = bangbot based on irc3: github://Asara/bangbot3
 host = chat.freenode.net
 port = 7000
 
-# uncomment this if you want ssl support
+# comment this if you want to disable ssl support
 ssl = true
 # uncomment this if you don't want to check the certificate
 # ssl_verify = CERT_NONE
@@ -16,16 +16,17 @@ includes =
     irc3.plugins.command
     irc3.plugins.uptime
     irc3.plugins.logger
+    plugins.cc
+    plugins.flip
     plugins.hello
     plugins.nickserv
     plugins.quit
-    plugins.urlscrape
     plugins.quotes
-    plugins.dice
-    plugins.time
-    plugins.lit
-    plugins.cc
+    plugins.roll
     plugins.stock
+    plugins.time
+    plugins.urlscrape
+    plugins.wiki
 
 autojoins =
     channel_one
