@@ -35,7 +35,7 @@ class Plugin(object):
 
     @command(permission=None, options_first=True)
     def cc(self, mask, target, args):
-        """Get the price of the specified cryptocurrency, an @ for your favorites.
+        """Get the price of the specified cryptocurrency, or @ for your favorites, which is set with !setmycc.
 
             %%cc <requestedCryptoCur>
         """
