@@ -14,7 +14,7 @@ nltk==3.4
 Pillow==5.4.1
 pkg-resources==0.0.0
 python-dateutil==2.7.5
-PyYAML==3.13
+PyYAML==4.2b1
 requests==2.21.0
 requests-file==1.4.3
 singledispatch==3.4.0.3
