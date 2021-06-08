@@ -43,18 +43,28 @@ class Plugin(object):
             try:
                 url = 'https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=' + stock_ticker
                 r = requests.get(url).json()['quoteResponse']['result'][0]
-                if float(r['regularMarketChange']) < float(0):
-                    change_sign = '↓'
-                else:
-                    change_sign = '↑'
                 stock = r['symbol']
                 stock_open = float(r['regularMarketOpen'])
-                price = float(r['regularMarketPrice'])
-                change = float(r['regularMarketChange'])
-                change_pct = float(r['regularMarketChangePercent'])
-                resp = '{} {}{:.2f} {:.2f} ({:+.2f}%) open: {:.2f}'.format(stock, change_sign, price, change, change_pct, stock_open)
+                if 'postMarketPrice' in r:
+                    if float(r['postMarketChange']) < float(0):
+                        change_sign = '↓'
+                    else:
+                        change_sign = '↑'
+                    price = float(r['postMarketPrice'])
+                    change = float(r['postMarketChange'])
+                    change_pct = float(r['postMarketChangePercent'])
+                    resp = 'After Hours: {} {}{:.2f} {:.2f} ({:+.2f}%) open: {:.2f}'.format(stock, change_sign, price, change, change_pct, stock_open)
+                else:
+                    if float(r['regularMarketChange']) < float(0):
+                        change_sign = '↓'
+                    else:
+                        change_sign = '↑'
+                    price = float(r['regularMarketPrice'])
+                    change = float(r['regularMarketChange'])
+                    change_pct = float(r['regularMarketChangePercent'])
+                    resp = '{} {}{:.2f} {:.2f} ({:+.2f}%) open: {:.2f}'.format(stock, change_sign, price, change, change_pct, stock_open)
                 yield(resp)
-            except: 
+            except:
                 yield('Stock not found')
         else:
             stocksfile = stocksfolder + target + '_' + mask.nick
@@ -65,16 +75,26 @@ class Plugin(object):
                     try:
                         url = 'https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=' + stock_ticker
                         r = requests.get(url).json()['quoteResponse']['result'][0]
-                        if float(r['regularMarketChange']) < float(0):
-                            change_sign = '↓'
-                        else:
-                            change_sign = '↑'
                         stock = r['symbol']
                         stock_open = float(r['regularMarketOpen'])
-                        price = float(r['regularMarketPrice'])
-                        change = float(r['regularMarketChange'])
-                        change_pct = float(r['regularMarketChangePercent'])
-                        resp = '{} {}{:.2f} {:.2f} ({:+.2f}%) open: {:.2f}'.format(stock, change_sign, price, change, change_pct, stock_open)
+                        if 'postMarketPrice' in r:
+                            if float(r['postMarketChange']) < float(0):
+                                change_sign = '↓'
+                            else:
+                                change_sign = '↑'
+                            price = float(r['postMarketPrice'])
+                            change = float(r['postMarketChange'])
+                            change_pct = float(r['postMarketChangePercent'])
+                            resp = 'After Hours: {} {}{:.2f} {:.2f} ({:+.2f}%) open: {:.2f}'.format(stock, change_sign, price, change, change_pct, stock_open)
+                        else:
+                            if float(r['regularMarketChange']) < float(0):
+                                change_sign = '↓'
+                            else:
+                                change_sign = '↑'
+                            price = float(r['regularMarketPrice'])
+                            change = float(r['regularMarketChange'])
+                            change_pct = float(r['regularMarketChangePercent'])
+                            resp = '{} {}{:.2f} {:.2f} ({:+.2f}%) open: {:.2f}'.format(stock, change_sign, price, change, change_pct, stock_open)
                         yield(resp)
                     except:
                         yield('Stock not found')
