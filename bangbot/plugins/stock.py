@@ -47,7 +47,10 @@ class Plugin(object):
                 r = requests.get(url).json()['quoteResponse']['result'][0]
                 stock = r['symbol']
                 yec = YahooEarningsCalendar(0.3)
-                next_er = datetime.utcfromtimestamp(yec.get_next_earnings_date(stock)).strftime('%m/%d/%Y')
+                try:
+                    next_er = datetime.utcfromtimestamp(yec.get_next_earnings_date(stock)).strftime('%m/%d/%Y')
+                except:
+                    next_er = 'N/A'
                 stock_open = float(r['regularMarketOpen'])
                 if 'postMarketPrice' in r:
                     if float(r['postMarketChange']) < float(0):
@@ -82,7 +85,10 @@ class Plugin(object):
                         r = requests.get(url).json()['quoteResponse']['result'][0]
                         stock = r['symbol']
                         yec = YahooEarningsCalendar(0.3)
-                        next_er = datetime.utcfromtimestamp(yec.get_next_earnings_date(stock)).strftime('%m/%d/%Y')
+                        try:
+                            next_er = datetime.utcfromtimestamp(yec.get_next_earnings_date(stock)).strftime('%m/%d/%Y')
+                        except:
+                            next_er = 'N/A'
                         stock_open = float(r['regularMarketOpen'])
                         if 'postMarketPrice' in r:
                             if float(r['postMarketChange']) < float(0):
