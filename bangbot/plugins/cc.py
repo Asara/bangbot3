@@ -14,8 +14,6 @@ class Plugin(object):
     def __init__(self, bot):
         self.bot = bot
 
-
-
     @command(permission=None, options_first=True)
     def setmycc(self, mask, target, args):
         """Set your favorite crypto currencies for !cc @
@@ -31,7 +29,6 @@ class Plugin(object):
                 yield 'Your cryptocurrency favorites saved'
         except:
             yield 'Could not save your preferences.  Please contact the administrator'
-
 
     @command(permission=None, options_first=True)
     def cc(self, mask, target, args):
@@ -74,7 +71,6 @@ class Plugin(object):
                                 '&tsyms=USD'
                                 ).json()['DISPLAY'][currency]['USD']
                         yield(
-    
                                 currency +
                                 ':' +
                                 d['PRICE'] +
