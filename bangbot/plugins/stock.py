@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from irc3.plugins.command import command
+from lxml import html
 import irc3
 import requests
 import os
