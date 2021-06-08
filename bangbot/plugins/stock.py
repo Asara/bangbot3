@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from irc3.plugins.command import command
+from yahoo_earnings_calendar import YahooEarningsCalendar
+from datetime import datetime
 from lxml import html
 import irc3
-import requests
 import os
+import requests
 
 stocksfolder = 'extra/stocksfolder/'
 if not os.path.exists(stocksfolder):
@@ -44,6 +46,8 @@ class Plugin(object):
                 url = 'https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=' + stock_ticker
                 r = requests.get(url).json()['quoteResponse']['result'][0]
                 stock = r['symbol']
+                yec = YahooEarningsCalendar(0.3)
+                next_er = datetime.utcfromtimestamp(yec.get_next_earnings_date(stock)).strftime('%m/%d/%Y')
                 stock_open = float(r['regularMarketOpen'])
                 if 'postMarketPrice' in r:
                     if float(r['postMarketChange']) < float(0):
@@ -51,9 +55,10 @@ class Plugin(object):
                     else:
                         change_sign = '↑'
                     price = float(r['postMarketPrice'])
+                    stock_close = float(r['regularMarketPrice'])
                     change = float(r['postMarketChange'])
                     change_pct = float(r['postMarketChangePercent'])
-                    resp = 'After Hours: {} {}{:.2f} {:.2f} ({:+.2f}%) open: {:.2f}'.format(stock, change_sign, price, change, change_pct, stock_open)
+                    resp = 'After Hours: {} {}{:.2f} {:.2f} ({:+.2f}%), open: {:.2f}, close: {:.2f}, next er: {}'.format(stock, change_sign, price, change, change_pct, stock_open, stock_close, next_er)
                 else:
                     if float(r['regularMarketChange']) < float(0):
                         change_sign = '↓'
@@ -62,7 +67,7 @@ class Plugin(object):
                     price = float(r['regularMarketPrice'])
                     change = float(r['regularMarketChange'])
                     change_pct = float(r['regularMarketChangePercent'])
-                    resp = '{} {}{:.2f} {:.2f} ({:+.2f}%) open: {:.2f}'.format(stock, change_sign, price, change, change_pct, stock_open)
+                    resp = '{} {}{:.2f} {:.2f} ({:+.2f}%) open: {:.2f}, next er: {}'.format(stock, change_sign, price, change, change_pct, stock_open, next_er)
                 yield(resp)
             except:
                 yield('Stock not found')
@@ -76,6 +81,8 @@ class Plugin(object):
                         url = 'https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=' + stock_ticker
                         r = requests.get(url).json()['quoteResponse']['result'][0]
                         stock = r['symbol']
+                        yec = YahooEarningsCalendar(0.3)
+                        next_er = datetime.utcfromtimestamp(yec.get_next_earnings_date(stock)).strftime('%m/%d/%Y')
                         stock_open = float(r['regularMarketOpen'])
                         if 'postMarketPrice' in r:
                             if float(r['postMarketChange']) < float(0):
@@ -83,9 +90,10 @@ class Plugin(object):
                             else:
                                 change_sign = '↑'
                             price = float(r['postMarketPrice'])
+                            stock_close = float(r['regularMarketPrice'])
                             change = float(r['postMarketChange'])
                             change_pct = float(r['postMarketChangePercent'])
-                            resp = 'After Hours: {} {}{:.2f} {:.2f} ({:+.2f}%) open: {:.2f}'.format(stock, change_sign, price, change, change_pct, stock_open)
+                            resp = 'After Hours: {} {}{:.2f} {:.2f} ({:+.2f}%), open: {:.2f}, close: {:.2f}, next er: {}'.format(stock, change_sign, price, change, change_pct, stock_open, stock_close, next_er)
                         else:
                             if float(r['regularMarketChange']) < float(0):
                                 change_sign = '↓'
@@ -94,7 +102,7 @@ class Plugin(object):
                             price = float(r['regularMarketPrice'])
                             change = float(r['regularMarketChange'])
                             change_pct = float(r['regularMarketChangePercent'])
-                            resp = '{} {}{:.2f} {:.2f} ({:+.2f}%) open: {:.2f}'.format(stock, change_sign, price, change, change_pct, stock_open)
+                            resp = '{} {}{:.2f} {:.2f} ({:+.2f}%) open: {:.2f}, next er: {}'.format(stock, change_sign, price, change, change_pct, stock_open, next_er)
                         yield(resp)
                     except:
                         yield('Stock not found')
